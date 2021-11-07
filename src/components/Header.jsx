@@ -10,7 +10,7 @@ export const Header = () => {
         <div className="display-table">
           <div className="display-table-contents">
             <div className="profile-thumb" style={{ backgroundImage: `url(${ProfileImage})` }}></div>
-            <h1 className="title-text">Yuto Miura</h1>
+            <h1 className="title-text">Yuto <span className="text-secondary">M</span>iura</h1>
             <h3 className="title-text">Web Engneer</h3>
             <ul className="social-icons">
               <li className="icon-link">

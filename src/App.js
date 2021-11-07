@@ -1,5 +1,8 @@
+import React from 'react';
 import './App.css';
 import { Header } from './components/Header';
+import { Skills } from './components/Skills';
+import { Contact } from './components/Contact';
 
 
 
@@ -7,7 +10,11 @@ import { Header } from './components/Header';
 
 const App = () => {
   return (
+    <>
     <Header />
+      <Skills />
+      <Contact />
+    </>
   );
 }
 
