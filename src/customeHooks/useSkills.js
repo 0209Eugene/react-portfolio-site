@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useCallback } from "react";
 import axios from "axios";
 import { skillReducer, actionTypes, initialState } from "../reducers/skillReducer";
 import { requestStates } from '../constants';
@@ -8,9 +8,10 @@ export const useSkills = () => {
   const LANGUAGE_COUNT_BASE = 10;
   const [state, dispatch] = useReducer(skillReducer, initialState);
 
-  const fetchReposApi = () => {
+  const fetchReposApi = useCallback(() => {
     axios.get('https://api.github.com/users/0209Eugene/repos')
       .then((response) => {
+        console.log('response', response)
         const languageList = response.data.map(res => res.language);
         const countedLanguageList = generateLanguageCountObj(languageList);
         dispatch({ type: actionTypes.success, payload: { languageList: countedLanguageList } });
@@ -18,17 +19,17 @@ export const useSkills = () => {
       .catch(() => {
         dispatch({ type: actionTypes.error });
       });
-  }
+  }, []);
 
 
   useEffect(() => {
     if (state.requestState !== requestStates.loading) { return; }
     fetchReposApi();
-  }, [state.requestState]);
+  }, [state.requestState, fetchReposApi]);
 
   useEffect(() => {
     dispatch({ type: actionTypes.fetch });
-  }, []);
+  }, [])
 
   const generateLanguageCountObj = (allLanguageList) => {
     const notNullLanguageList = allLanguageList.filter(language => language !== null);
